@@ -1,0 +1,105 @@
+<html>
+
+<head>
+
+<title>Promote Properly Sign-up</title>
+<link rel="icon" href="oddIcon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	var baseUrl = "https://script.google.com/macros/s/AKfycbxEZAdS4RiQcwHpG3bO-OCvMLch5q1XoTuymzP3OGsxDQOQ_y4/exec";
+	
+	function encodeQueryData(data) {
+		const ret = [];
+		for (let d in data)
+		 ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+		return ret.join('&');
+	}
+	function sendReq(email,first,last,username,pass,canSend){
+		console.log("this ran");
+		data = {
+			"email":email,
+			"first":first,
+			"last":last,
+			"username":username,
+			"password":pass,
+			"canSend":canSend
+		};
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			if(this.readyState==4 && this.status==200){
+				console.log(this.responseText);
+			}
+		};
+		xhttp.open("GET", baseUrl+"?"+encodeQueryData(data));
+		xhttp.send();
+	}
+	
+	function finish(){
+		var formboi = document.forms["accountForm"];
+		if(formboi["pass"].value != formboi["pass2"].value){
+			alert("Your passwords don't match");
+			return;
+		}
+		if(!formboi["agree"].checked){
+			alert("We wouldn't wanna make you an account if you don't agree to the terms and conditions cause that would be a violation of your rights.");
+			return;
+		}
+
+		sendReq(
+			formboi["email"].value,
+			formboi["first"].value,
+			formboi["last"].value,
+			formboi["user"].value,
+			formboi["pass"].value,
+			formboi["canSend"].checked
+			);
+		document.write("Submission Successful");
+	}
+</script>
+</head>
+
+<body>
+<div class="jumbotron text-center">
+	<h1>Promote Properly Sign-Up Form</h1>
+</div>
+
+<div class="container">
+	<form name="accountForm" action="javascript:finish()">
+		<div>
+			<label>Email:</label>
+			<input class="form-control" type="email" name="email" placeholder="ex: luke.skywalker@gmail.com" required />
+		</div>
+		<div>
+			<label>First name:</label>
+			<input class="form-control" type="text" name="first" placeholder="ex: Luke" required />
+		</div>
+		<div>
+			<label>Last name:</label>
+			<input class="form-control" type="text" name="last" placeholder="ex: Skywalker" required />
+		</div>
+		<div>
+			<label>Username:</label>
+			<input class="form-control" type="text" name="user" placeholder="ex: lukeSkywalker" required />
+		</div>
+		<div>
+			<label>Password:</label>
+			<input class="form-control" type="password" name="pass" required />
+		</div>
+		<div>
+			<label>Confirm password:</label>
+			<input class="form-control" type="password" name="pass2" required />
+		</div>
+
+		<input class="form-check-input" type="checkbox" name="agree">I agree to the terms and conditions that don't actually exist yet<br>
+
+		<input class="form-check-input" type="checkbox" name="canSend">I am ok with Promote Properly sending me emails (I can change my mind if I want to)<br>
+		<input class="btn" type="submit" name="submit"/>
+	</form>
+</div>
+
+</body>
+</html>

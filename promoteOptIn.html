@@ -1,0 +1,77 @@
+<html>
+
+<head>
+
+<title>Promote Properly Opt-In</title>
+<link rel="icon" href="oddIcon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	var baseUrl = "https://script.google.com/macros/s/AKfycbzSlSU_bvrkDTv3rgH66_oud0mvW2xr7j2tOfuf16bDbHOXusA/exec";
+	
+	function encodeQueryData(data) {
+		const ret = [];
+		for (let d in data)
+		 ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+		return ret.join('&');
+	}
+	function sendReq(name,email){
+		console.log("this ran");
+		data = {
+			"name":name,
+			"email":email
+		};
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function(){
+			if(this.readyState==4 && this.status==200){
+				console.log(this.responseText);
+			}
+		};
+		xhttp.open("GET", baseUrl+"?"+encodeQueryData(data));
+		xhttp.send();
+	}
+	
+	function finish(){
+		var formboi = document.forms["accountForm"];
+		if(!formboi["canSend"].checked){
+			alert("Why would you wanna opt-in but not let us send you emails?");
+			return;
+		}
+		console.log(formboi["name"].value);
+		console.log(formboi["email"].value);
+		sendReq(
+			formboi["name"].value,
+			formboi["email"].value
+			);
+		document.write("Submission Successful");
+	}
+</script>
+</head>
+
+<body>
+<div class="jumbotron text-center">
+	<h1>Promote Properly Opt-In</h1>
+</div>
+
+<div class="container">
+	<h3>Enter your email below and learn more about budget friendly advertising opportunities.  Help us, help you</h3>
+	<form name="accountForm" action="javascript:finish()">
+		<div>
+			<label>Name:</label>
+			<input class="form-control" type="text" name="name" placeholder="ex: lukeSkywalker" required />
+		</div>
+		<div>
+			<label>Email:</label>
+			<input class="form-control" type="email" name="email" placeholder="ex: luke.skywalker@gmail.com" required />
+		</div>
+
+		<input class="form-check-input" type="checkbox" name="canSend">I am ok with Promote Properly sending me emails (Not exactly sure why you'd wanna opt-in but not recieve emails, but ya know just in case)<br>
+		<input class="btn" type="submit" name="submit"/>
+	</form>
+</div>
+
+</body>
+</html>

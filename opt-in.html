@@ -46,7 +46,8 @@
 			formboi["name"].value,
 			formboi["email"].value
 			);
-		document.write("Submission Successful");
+		document.getElementById('submitted').style.display="";
+		document.getElementById("normal").style.display="none";
 	}
 </script>
 </head>
@@ -56,7 +57,11 @@
 	<h1>Promote Properly Opt-In</h1>
 </div>
 
-<div class="container">
+<div id="submitted" class="container" style="display: none">
+	<h2>Check out PromoteProperly.com! We highly recommend you post advertising space even if you’re unsure of what you can offer, we have a “negotiable” option.<br>Remember, “you miss 100% of the shots you don’t take”<br>--Wayne Gretzky<br>--Michael Scott<br>So if you put effort into posting on Promote Properly, you should be able to make some valuable connections.<br>
+</div>
+
+<div id="normal" class="container">
 	<h3>Enter your email below and learn more about budget friendly advertising opportunities.  Help us, help you</h3>
 	<form name="accountForm" action="javascript:finish()">
 		<div>
@@ -68,7 +73,7 @@
 			<input class="form-control" type="email" name="email" placeholder="ex: luke.skywalker@gmail.com" required />
 		</div>
 
-		<input class="form-check-input" type="checkbox" name="canSend">I am ok with Promote Properly sending me emails (Not exactly sure why you'd wanna opt-in but not recieve emails, but ya know just in case)<br>
+		<input class="form-check-input" type="checkbox" name="canSend">I am ok with Promote Properly sending me emails<br>
 		<input class="btn" type="submit" name="submit"/>
 	</form>
 </div>
